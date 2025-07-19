@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String             @id @default(uuid())
+  email        String             @unique
+  name         String
+  spark        Int                @default(0)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  posts        Post[]
+  replies      Reply[]
+  votes        Vote[]
+  memberships  CellMembership[]
+  moderating   CellModerator[]
+  createdCells Cell[]             @relation("CreatedCells")
+}
+
+model Cell {
+  id           String             @id @default(uuid())
+  name         String             @unique
+  title        String
+  description  String?
+  createdAt    DateTime           @default(now())
+  createdById  String
+  createdBy    User               @relation("CreatedCells", fields: [createdById], references: [id])
+
+  posts        Post[]
+  moderators   CellModerator[]
+  members      CellMembership[]
+}
+
+model Post {
+  id           String             @id @default(uuid())
+  content      String
+  upvotes      Int                @default(0)
+  downvotes    Int                @default(0)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  userId       String
+  cellId       String
+  user         User               @relation(fields: [userId], references: [id])
+  cell         Cell               @relation(fields: [cellId], references: [id])
+
+  replies      Reply[]
+  votes        Vote[]
+}
+
+model Reply {
+  id           String             @id @default(uuid())
+  content      String
+  createdAt    DateTime           @default(now())
+  userId       String
+  postId       String
+  user         User               @relation(fields: [userId], references: [id])
+  post         Post               @relation(fields: [postId], references: [id])
+}
+
+model Vote {
+  id           String             @id @default(uuid())
+  value        Int
+  createdAt    DateTime           @default(now())
+  userId       String
+  postId       String
+  user         User               @relation(fields: [userId], references: [id])
+  post         Post               @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+}
+
+model CellModerator {
+  id           String             @id @default(uuid())
+  createdAt    DateTime           @default(now())
+  userId       String
+  cellId       String
+  user         User               @relation(fields: [userId], references: [id])
+  cell         Cell               @relation(fields: [cellId], references: [id])
+
+  @@unique([userId, cellId])
+}
+
+model CellMembership {
+  id           String             @id @default(uuid())
+  joinedAt     DateTime           @default(now())
+  userId       String
+  cellId       String
+  user         User               @relation(fields: [userId], references: [id])
+  cell         Cell               @relation(fields: [cellId], references: [id])
+
+  @@unique([userId, cellId])
+}
