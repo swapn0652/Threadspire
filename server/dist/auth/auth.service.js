@@ -33,6 +33,7 @@ let AuthService = class AuthService {
             data: {
                 email: dto.email,
                 name: dto.name,
+                username: dto.username,
                 spark: 0,
                 password: hashed
             }
@@ -49,9 +50,19 @@ let AuthService = class AuthService {
         };
     }
     async login(dto) {
-        const user = await this.prisma.user.findUnique({
-            where: { email: dto.email },
-        });
+        const { identifier, password } = dto;
+        let user;
+        const isEmail = /\S+@\S+\.\S+/.test(identifier);
+        if (isEmail) {
+            user = await this.prisma.user.findUnique({
+                where: { email: identifier },
+            });
+        }
+        else {
+            user = await this.prisma.user.findUnique({
+                where: { username: identifier }
+            });
+        }
         if (!user)
             throw new common_1.UnauthorizedException('Invalid Credentials!');
         const isMatch = await bcrypt.compare(dto.password, user.password);
@@ -62,11 +73,18 @@ let AuthService = class AuthService {
             token,
             user: {
                 id: user.id,
+                username: user.username,
                 name: user.name,
                 email: user.email,
                 spark: user.spark,
             },
         };
+    }
+    async getUserById(userId) {
+        return this.prisma.user.findUnique({
+            where: { id: userId },
+            select: { id: true, email: true, name: true, username: true, spark: true, createdAt: true }
+        });
     }
 };
 exports.AuthService = AuthService;

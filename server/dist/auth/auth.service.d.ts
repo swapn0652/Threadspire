@@ -18,10 +18,19 @@ export declare class AuthService {
     login(dto: LoginDto): Promise<{
         token: string;
         user: {
-            id: string;
-            name: string;
-            email: string;
-            spark: number;
+            id: any;
+            username: any;
+            name: any;
+            email: any;
+            spark: any;
         };
     }>;
+    getUserById(userId: string): Promise<{
+        id: string;
+        email: string;
+        username: string;
+        name: string;
+        spark: number;
+        createdAt: Date;
+    } | null>;
 }

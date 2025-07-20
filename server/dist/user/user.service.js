@@ -9,29 +9,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SignUpDto = void 0;
-const class_validator_1 = require("class-validator");
-class SignUpDto {
-    email;
-    name;
-    username;
-    password;
-}
-exports.SignUpDto = SignUpDto;
-__decorate([
-    (0, class_validator_1.IsEmail)(),
-    __metadata("design:type", String)
-], SignUpDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], SignUpDto.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], SignUpDto.prototype, "username", void 0);
-__decorate([
-    (0, class_validator_1.MinLength)(6),
-    __metadata("design:type", String)
-], SignUpDto.prototype, "password", void 0);
-//# sourceMappingURL=signup.dto.js.map
+exports.UserService = void 0;
+const common_1 = require("@nestjs/common");
+const prisma_service_1 = require("../prisma/prisma.service");
+let UserService = class UserService {
+    prisma;
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
+    async updateProfile(userId, dto) {
+        return this.prisma.user.update({
+            where: { id: userId },
+            data: { name: dto.name },
+            select: { id: true, email: true, name: true, spark: true },
+        });
+    }
+};
+exports.UserService = UserService;
+exports.UserService = UserService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+], UserService);
+//# sourceMappingURL=user.service.js.map

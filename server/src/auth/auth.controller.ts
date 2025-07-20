@@ -19,15 +19,10 @@ export class AuthController {
         return this.authService.login(dto);
     }
 
-    @UseGuards(AuthGuard('jwt')) 
+    @UseGuards(AuthGuard('jwt'))
     @Get('me')
     async getMe(@Req() req) {
         const userId = req.user.userId;
-        const user = await this.prisma.user.findUnique({
-            where: { id: userId },
-            select: { id: true, email: true, name: true, spark: true, createdAt: true }
-        });
-
-        return user;
+        return this.authService.getUserById(userId);
     }
 }

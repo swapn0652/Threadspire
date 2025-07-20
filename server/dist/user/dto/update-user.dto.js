@@ -9,29 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SignUpDto = void 0;
+exports.UpdateUserDto = void 0;
 const class_validator_1 = require("class-validator");
-class SignUpDto {
-    email;
+class UpdateUserDto {
     name;
-    username;
-    password;
 }
-exports.SignUpDto = SignUpDto;
+exports.UpdateUserDto = UpdateUserDto;
 __decorate([
-    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
     __metadata("design:type", String)
-], SignUpDto.prototype, "email", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], SignUpDto.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], SignUpDto.prototype, "username", void 0);
-__decorate([
-    (0, class_validator_1.MinLength)(6),
-    __metadata("design:type", String)
-], SignUpDto.prototype, "password", void 0);
-//# sourceMappingURL=signup.dto.js.map
+], UpdateUserDto.prototype, "name", void 0);
+//# sourceMappingURL=update-user.dto.js.map

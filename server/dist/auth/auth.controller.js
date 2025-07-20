@@ -34,11 +34,7 @@ let AuthController = class AuthController {
     }
     async getMe(req) {
         const userId = req.user.userId;
-        const user = await this.prisma.user.findUnique({
-            where: { id: userId },
-            select: { id: true, email: true, name: true, spark: true, createdAt: true }
-        });
-        return user;
+        return this.authService.getUserById(userId);
     }
 };
 exports.AuthController = AuthController;
