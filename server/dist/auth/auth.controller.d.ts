@@ -1,9 +1,11 @@
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 export declare class AuthController {
     private authService;
-    constructor(authService: AuthService);
+    private prisma;
+    constructor(authService: AuthService, prisma: PrismaService);
     signup(dto: SignUpDto): Promise<{
         token: string;
         user: {
@@ -22,4 +24,11 @@ export declare class AuthController {
             spark: number;
         };
     }>;
+    getMe(req: any): Promise<{
+        id: string;
+        email: string;
+        name: string;
+        spark: number;
+        createdAt: Date;
+    } | null>;
 }
