@@ -88,7 +88,25 @@ export class AuthService {
     async getUserById(userId: string) {
         return this.prisma.user.findUnique({
             where: { id: userId },
-            select: { id: true, email: true, name: true, username: true, spark: true, createdAt: true }
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                username: true,
+                spark: true,
+                createdAt: true,
+                memberships: {
+                select: {
+                    cell: {
+                    select: {
+                        id: true,
+                        name: true,
+                        title: true,
+                    }
+                    }
+                }
+                }
+            }
         });
     }
 }

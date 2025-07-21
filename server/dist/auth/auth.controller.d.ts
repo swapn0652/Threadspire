@@ -32,5 +32,12 @@ export declare class AuthController {
         name: string;
         spark: number;
         createdAt: Date;
+        memberships: {
+            cell: {
+                id: string;
+                name: string;
+                title: string;
+            };
+        }[];
     } | null>;
 }

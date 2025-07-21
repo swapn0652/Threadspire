@@ -4,9 +4,9 @@ export declare class UserService {
     private prisma;
     constructor(prisma: PrismaService);
     updateProfile(userId: string, dto: UpdateUserDto): Promise<{
-        id: string;
         email: string;
         name: string;
+        id: string;
         spark: number;
     }>;
 }
