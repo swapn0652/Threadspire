@@ -21,6 +21,7 @@ model User {
   posts        Post[]
   replies      Reply[]
   votes        Vote[]
+  replyVotes   ReplyVote[]
   memberships  CellMembership[]
   moderating   CellModerator[]
   createdCells Cell[]             @relation("CreatedCells")
@@ -57,14 +58,18 @@ model Post {
 }
 
 model Reply {
-  id           String             @id @default(uuid())
+  id           String      @id @default(uuid())
   content      String
-  createdAt    DateTime           @default(now())
+  upvotes      Int         @default(0)
+  downvotes    Int         @default(0)
+  createdAt    DateTime    @default(now())
   userId       String
   postId       String
-  user         User               @relation(fields: [userId], references: [id])
-  post         Post               @relation(fields: [postId], references: [id])
+  user         User        @relation(fields: [userId], references: [id])
+  post         Post        @relation(fields: [postId], references: [id])
+  replyVotes   ReplyVote[] 
 }
+
 
 model Vote {
   id           String             @id @default(uuid())
@@ -76,6 +81,18 @@ model Vote {
   post         Post               @relation(fields: [postId], references: [id])
 
   @@unique([userId, postId])
+}
+
+model ReplyVote {
+  id        String   @id @default(uuid())
+  value     Int      // 1 for upvote, -1 for downvote
+  createdAt DateTime @default(now())
+  userId    String
+  replyId   String
+  user      User     @relation(fields: [userId], references: [id])
+  reply     Reply    @relation(fields: [replyId], references: [id])
+
+  @@unique([userId, replyId]) 
 }
 
 model CellModerator {

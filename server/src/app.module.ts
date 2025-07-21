@@ -7,9 +7,11 @@ import { UserModule } from './user/user.module';
 import { CellsModule } from './cells/cells.module';
 import { PostsModule } from './posts/posts.module';
 import { VotesModule } from './votes/votes.module';
+import { RepliesModule } from './replies/replies.module';
+import { ReplyVotesModule } from './reply-votes/reply-votes.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule, UserModule, CellsModule, PostsModule, VotesModule],
+  imports: [AuthModule, PrismaModule, UserModule, CellsModule, PostsModule, VotesModule, RepliesModule, ReplyVotesModule],
   controllers: [AppController],
   providers: [AppService],
 })

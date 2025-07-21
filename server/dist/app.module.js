@@ -16,12 +16,14 @@ const user_module_1 = require("./user/user.module");
 const cells_module_1 = require("./cells/cells.module");
 const posts_module_1 = require("./posts/posts.module");
 const votes_module_1 = require("./votes/votes.module");
+const replies_module_1 = require("./replies/replies.module");
+const reply_votes_module_1 = require("./reply-votes/reply-votes.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [auth_module_1.AuthModule, prisma_module_1.PrismaModule, user_module_1.UserModule, cells_module_1.CellsModule, posts_module_1.PostsModule, votes_module_1.VotesModule],
+        imports: [auth_module_1.AuthModule, prisma_module_1.PrismaModule, user_module_1.UserModule, cells_module_1.CellsModule, posts_module_1.PostsModule, votes_module_1.VotesModule, replies_module_1.RepliesModule, reply_votes_module_1.ReplyVotesModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

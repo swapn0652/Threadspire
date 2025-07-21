@@ -5,20 +5,20 @@ export declare class PostsController {
     constructor(postsService: PostsService);
     createPost(req: any, dto: CreatePostDto): Promise<{
         id: string;
+        content: string;
         createdAt: Date;
         userId: string;
         cellId: string;
-        content: string;
     }>;
     getPostById(postId: string): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string;
-        cellId: string;
         content: string;
         upvotes: number;
         downvotes: number;
+        createdAt: Date;
+        userId: string;
+        updatedAt: Date;
+        cellId: string;
     }>;
     deletePost(req: any, postId: string): Promise<{
         message: string;

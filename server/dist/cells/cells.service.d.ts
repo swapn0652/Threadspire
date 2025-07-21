@@ -7,17 +7,17 @@ export declare class CellsService {
         title: string;
         description?: string;
     }): Promise<{
-        name: string;
         id: string;
         createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
         createdById: string;
     }>;
     getAllCells(): Promise<{
-        name: string;
         id: string;
         createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
         createdById: string;
@@ -37,8 +37,8 @@ export declare class CellsService {
         members: {
             id: string;
             userId: string;
-            joinedAt: Date;
             cellId: string;
+            joinedAt: Date;
         }[];
         moderators: {
             id: string;
@@ -58,9 +58,9 @@ export declare class CellsService {
         title?: string;
         description?: string;
     }): Promise<{
-        name: string;
         id: string;
         createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
     }>;

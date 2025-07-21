@@ -4,9 +4,9 @@ export declare class UserController {
     private userService;
     constructor(userService: UserService);
     updateProfile(req: any, dto: UpdateUserDto): Promise<{
-        email: string;
-        name: string;
         id: string;
+        name: string;
+        email: string;
         spark: number;
     }>;
 }
