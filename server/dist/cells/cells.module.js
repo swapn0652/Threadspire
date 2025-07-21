@@ -10,12 +10,13 @@ exports.CellsModule = void 0;
 const common_1 = require("@nestjs/common");
 const cells_service_1 = require("./cells.service");
 const cells_controller_1 = require("./cells.controller");
+const posts_service_1 = require("../posts/posts.service");
 let CellsModule = class CellsModule {
 };
 exports.CellsModule = CellsModule;
 exports.CellsModule = CellsModule = __decorate([
     (0, common_1.Module)({
-        providers: [cells_service_1.CellsService],
+        providers: [cells_service_1.CellsService, posts_service_1.PostsService],
         controllers: [cells_controller_1.CellsController]
     })
 ], CellsModule);

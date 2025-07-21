@@ -4,10 +4,11 @@ import { AuthGuard } from '@nestjs/passport';
 import { CreateCellDto } from './dto/create-cell.dto';
 import { AddModeratorDto } from './dto/add-moderator.dto';
 import { EditCellDto } from './dto/edit-cell.dto';
+import { PostsService } from 'src/posts/posts.service';
 
 @Controller('cells')
 export class CellsController {
-    constructor(private cellsService: CellsService) {}
+    constructor(private cellsService: CellsService, private postsService: PostsService) {}
 
     @UseGuards(AuthGuard('jwt'))
     @Post()
@@ -53,4 +54,10 @@ export class CellsController {
         const userId = req.user.userId;
         return this.cellsService.updateCell(cellId, userId, dto);
     }
+
+    @Get('/:id/posts')
+    getPostsInCell(@Param('id') cellId: string) {
+        return this.postsService.getPostsInCell(cellId);
+    }
+
 }

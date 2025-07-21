@@ -19,10 +19,13 @@ const passport_1 = require("@nestjs/passport");
 const create_cell_dto_1 = require("./dto/create-cell.dto");
 const add_moderator_dto_1 = require("./dto/add-moderator.dto");
 const edit_cell_dto_1 = require("./dto/edit-cell.dto");
+const posts_service_1 = require("../posts/posts.service");
 let CellsController = class CellsController {
     cellsService;
-    constructor(cellsService) {
+    postsService;
+    constructor(cellsService, postsService) {
         this.cellsService = cellsService;
+        this.postsService = postsService;
     }
     async create(req, dto) {
         const userId = req.user.userId;
@@ -49,6 +52,9 @@ let CellsController = class CellsController {
     async updateCell(cellId, req, dto) {
         const userId = req.user.userId;
         return this.cellsService.updateCell(cellId, userId, dto);
+    }
+    getPostsInCell(cellId) {
+        return this.postsService.getPostsInCell(cellId);
     }
 };
 exports.CellsController = CellsController;
@@ -112,8 +118,15 @@ __decorate([
     __metadata("design:paramtypes", [String, Object, edit_cell_dto_1.EditCellDto]),
     __metadata("design:returntype", Promise)
 ], CellsController.prototype, "updateCell", null);
+__decorate([
+    (0, common_1.Get)('/:id/posts'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], CellsController.prototype, "getPostsInCell", null);
 exports.CellsController = CellsController = __decorate([
     (0, common_1.Controller)('cells'),
-    __metadata("design:paramtypes", [cells_service_1.CellsService])
+    __metadata("design:paramtypes", [cells_service_1.CellsService, posts_service_1.PostsService])
 ], CellsController);
 //# sourceMappingURL=cells.controller.js.map

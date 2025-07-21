@@ -2,9 +2,11 @@ import { CellsService } from './cells.service';
 import { CreateCellDto } from './dto/create-cell.dto';
 import { AddModeratorDto } from './dto/add-moderator.dto';
 import { EditCellDto } from './dto/edit-cell.dto';
+import { PostsService } from 'src/posts/posts.service';
 export declare class CellsController {
     private cellsService;
-    constructor(cellsService: CellsService);
+    private postsService;
+    constructor(cellsService: CellsService, postsService: PostsService);
     create(req: any, dto: CreateCellDto): Promise<{
         id: string;
         name: string;
@@ -60,4 +62,14 @@ export declare class CellsController {
         description: string | null;
         createdAt: Date;
     }>;
+    getPostsInCell(cellId: string): Promise<{
+        id: string;
+        createdAt: Date;
+        userId: string;
+        cellId: string;
+        content: string;
+        upvotes: number;
+        downvotes: number;
+        updatedAt: Date;
+    }[]>;
 }

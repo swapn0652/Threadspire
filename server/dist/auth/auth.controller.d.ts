@@ -26,16 +26,16 @@ export declare class AuthController {
         };
     }>;
     getMe(req: any): Promise<{
-        id: string;
         email: string;
-        username: string;
         name: string;
+        username: string;
+        id: string;
         spark: number;
         createdAt: Date;
         memberships: {
             cell: {
-                id: string;
                 name: string;
+                id: string;
                 title: string;
             };
         }[];
