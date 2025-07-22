@@ -5,26 +5,26 @@ export declare class RepliesController {
     constructor(repliesService: RepliesService);
     addReply(postId: string, req: any, dto: CreateReplyDto): Promise<{
         id: string;
+        createdAt: Date;
+        userId: string;
         content: string;
         upvotes: number;
         downvotes: number;
-        createdAt: Date;
-        userId: string;
         postId: string;
     }>;
     getReplies(postId: string): Promise<({
         user: {
-            id: string;
             name: string;
             username: string;
+            id: string;
         };
     } & {
         id: string;
+        createdAt: Date;
+        userId: string;
         content: string;
         upvotes: number;
         downvotes: number;
-        createdAt: Date;
-        userId: string;
         postId: string;
     })[]>;
     deleteReply(replyId: string, req: any): Promise<{

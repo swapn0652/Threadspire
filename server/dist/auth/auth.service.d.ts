@@ -26,16 +26,16 @@ export declare class AuthService {
         };
     }>;
     getUserById(userId: string): Promise<{
-        id: string;
-        createdAt: Date;
-        name: string;
         email: string;
+        name: string;
         username: string;
+        id: string;
         spark: number;
+        createdAt: Date;
         memberships: {
             cell: {
-                id: string;
                 name: string;
+                id: string;
                 title: string;
             };
         }[];

@@ -5,30 +5,30 @@ export declare class PostsService {
     constructor(prisma: PrismaService);
     createPost(userId: string, dto: CreatePostDto): Promise<{
         id: string;
-        content: string;
         createdAt: Date;
         userId: string;
         cellId: string;
+        content: string;
     }>;
     getPostsInCell(cellId: string): Promise<{
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: string;
+        cellId: string;
         content: string;
         upvotes: number;
         downvotes: number;
-        createdAt: Date;
-        userId: string;
-        updatedAt: Date;
-        cellId: string;
     }[]>;
     getPostById(postId: string): Promise<{
         id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        userId: string;
+        cellId: string;
         content: string;
         upvotes: number;
         downvotes: number;
-        createdAt: Date;
-        userId: string;
-        updatedAt: Date;
-        cellId: string;
     }>;
     deletePost(postId: string, requesterId: string): Promise<{
         message: string;

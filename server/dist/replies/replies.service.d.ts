@@ -4,26 +4,26 @@ export declare class RepliesService {
     constructor(prisma: PrismaService);
     addReply(postId: string, userId: string, content: string): Promise<{
         id: string;
+        createdAt: Date;
+        userId: string;
         content: string;
         upvotes: number;
         downvotes: number;
-        createdAt: Date;
-        userId: string;
         postId: string;
     }>;
     getRepliesByPost(postId: string): Promise<({
         user: {
-            id: string;
             name: string;
             username: string;
+            id: string;
         };
     } & {
         id: string;
+        createdAt: Date;
+        userId: string;
         content: string;
         upvotes: number;
         downvotes: number;
-        createdAt: Date;
-        userId: string;
         postId: string;
     })[]>;
     deleteReply(replyId: string, userId: string): Promise<{
