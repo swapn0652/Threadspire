@@ -5,7 +5,7 @@ export declare class FeedController {
     getUserFeed(req: any): Promise<({
         user: {
             name: string;
-            username: string;
+            username: string | null;
             id: string;
         };
         cell: {

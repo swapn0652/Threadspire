@@ -5,7 +5,7 @@ export declare class FeedService {
     getFeedForUser(userId: string): Promise<({
         user: {
             name: string;
-            username: string;
+            username: string | null;
             id: string;
         };
         cell: {

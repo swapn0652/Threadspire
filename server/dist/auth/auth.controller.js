@@ -19,6 +19,7 @@ const signup_dto_1 = require("./dto/signup.dto");
 const login_dto_1 = require("./dto/login.dto");
 const passport_1 = require("@nestjs/passport");
 const prisma_service_1 = require("../prisma/prisma.service");
+const jwt = require("jsonwebtoken");
 let AuthController = class AuthController {
     authService;
     prisma;
@@ -33,8 +34,30 @@ let AuthController = class AuthController {
         return this.authService.login(dto);
     }
     async getMe(req) {
-        const userId = req.user.userId;
-        return this.authService.getUserById(userId);
+        const user = req.user;
+        return this.authService.getUserById(user.userId);
+    }
+    async googleAuth() {
+    }
+    async googleAuthRedirect(req, res) {
+        const user = req.user;
+        const jwtSecret = process.env.JWT_SECRET;
+        if (!jwtSecret) {
+            throw new Error('JWT_SECRET is not defined in environment variables');
+        }
+        const token = jwt.sign({
+            userId: user.id,
+            email: user.email,
+            hasUsername: !!user.username,
+        }, jwtSecret, { expiresIn: '1d' });
+        res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${token}`);
+    }
+    async setUsername(body, req) {
+        const user = req.user;
+        return this.prisma.user.update({
+            where: { id: user.userId },
+            data: { username: body.username },
+        });
     }
 };
 exports.AuthController = AuthController;
@@ -60,8 +83,34 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getMe", null);
+__decorate([
+    (0, common_1.Get)('google'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "googleAuth", null);
+__decorate([
+    (0, common_1.Get)('google/redirect'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "googleAuthRedirect", null);
+__decorate([
+    (0, common_1.Patch)('set-username'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "setUsername", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService, prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        prisma_service_1.PrismaService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

@@ -6,6 +6,7 @@ import { SignUpInput, signUpSchema } from '../../../../utils/zod/auth';
 import { useMutation } from '@tanstack/react-query';
 import api from '../../../../utils/axios';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 export default function SignUpPage() {
   const {
@@ -64,9 +65,10 @@ export default function SignUpPage() {
 
         <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
           Already have an account?{' '}
-          <a href="/login" className="text-blue-600 hover:underline">
-            Log in
-          </a>
+          <Link href="/auth/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+
         </p>
       </div>
     </div>

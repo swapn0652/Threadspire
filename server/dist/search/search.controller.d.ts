@@ -6,7 +6,7 @@ export declare class SearchController {
         posts: ({
             user: {
                 name: string;
-                username: string;
+                username: string | null;
                 id: string;
             };
             cell: {
@@ -34,7 +34,7 @@ export declare class SearchController {
         }[];
         users: {
             name: string;
-            username: string;
+            username: string | null;
             id: string;
         }[];
     }>;

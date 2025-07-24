@@ -14,7 +14,7 @@ export declare class RepliesService {
     getRepliesByPost(postId: string): Promise<({
         user: {
             name: string;
-            username: string;
+            username: string | null;
             id: string;
         };
     } & {

@@ -15,7 +15,7 @@ export declare class RepliesController {
     getReplies(postId: string): Promise<({
         user: {
             name: string;
-            username: string;
+            username: string | null;
             id: string;
         };
     } & {

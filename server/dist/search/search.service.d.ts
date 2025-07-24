@@ -6,7 +6,7 @@ export declare class SearchService {
         posts: ({
             user: {
                 name: string;
-                username: string;
+                username: string | null;
                 id: string;
             };
             cell: {
@@ -34,7 +34,7 @@ export declare class SearchService {
         }[];
         users: {
             name: string;
-            username: string;
+            username: string | null;
             id: string;
         }[];
     }>;

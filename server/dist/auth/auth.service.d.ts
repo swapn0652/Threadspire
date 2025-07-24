@@ -28,7 +28,7 @@ export declare class AuthService {
     getUserById(userId: string): Promise<{
         email: string;
         name: string;
-        username: string;
+        username: string | null;
         id: string;
         spark: number;
         createdAt: Date;

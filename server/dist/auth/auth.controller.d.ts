@@ -2,6 +2,7 @@ import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Request, Response } from 'express';
 export declare class AuthController {
     private authService;
     private prisma;
@@ -25,10 +26,10 @@ export declare class AuthController {
             spark: any;
         };
     }>;
-    getMe(req: any): Promise<{
+    getMe(req: Request): Promise<{
         email: string;
         name: string;
-        username: string;
+        username: string | null;
         id: string;
         spark: number;
         createdAt: Date;
@@ -40,4 +41,18 @@ export declare class AuthController {
             };
         }[];
     } | null>;
+    googleAuth(): Promise<void>;
+    googleAuthRedirect(req: Request, res: Response): Promise<void>;
+    setUsername(body: {
+        username: string;
+    }, req: Request): Promise<{
+        email: string;
+        name: string;
+        username: string | null;
+        password: string | null;
+        id: string;
+        spark: number;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }
