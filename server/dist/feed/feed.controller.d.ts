@@ -2,7 +2,7 @@ import { FeedService } from './feed.service';
 export declare class FeedController {
     private feedService;
     constructor(feedService: FeedService);
-    getUserFeed(req: any): Promise<({
+    getFeed(req: any): Promise<({
         user: {
             name: string;
             username: string | null;

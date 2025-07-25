@@ -60,23 +60,36 @@ let CellsService = class CellsService {
             }
         });
     }
-    async joinCell(cellId, userId) {
-        const cell = await this.prisma.cell.findUnique({ where: { id: cellId } });
-        if (!cell)
-            throw new common_1.NotFoundException("Cell not found!");
-        const existing = await this.prisma.cellMembership.findUnique({
-            where: { userId_cellId: { userId, cellId } }
+    async joinCells(cellIds, userId) {
+        const validCells = await this.prisma.cell.findMany({
+            where: {
+                id: { in: cellIds }
+            },
+            select: { id: true }
         });
-        if (existing)
-            throw new common_1.ConflictException('Already a member');
-        await this.prisma.cellMembership.create({
-            data: {
+        console.log("validCells: ", validCells);
+        const validCellIds = validCells.map((cell) => cell.id);
+        const existingMemberships = await this.prisma.cellMembership.findMany({
+            where: {
                 userId,
-                cellId
-            }
+                cellId: { in: validCellIds }
+            },
+            select: { cellId: true }
+        });
+        const alreadyJoinedIds = new Set(existingMemberships.map((m) => m.cellId));
+        const newCellIds = validCellIds.filter((id) => !alreadyJoinedIds.has(id));
+        if (newCellIds.length === 0) {
+            throw new common_1.ConflictException('Already a member of all selected cells.');
+        }
+        await this.prisma.cellMembership.createMany({
+            data: newCellIds.map((cellId) => ({
+                cellId,
+                userId,
+            })),
+            skipDuplicates: true,
         });
         return {
-            message: "Joined cell successfully!"
+            message: `Joined ${newCellIds.length} cells successfully!`,
         };
     }
     async getCellByName(name) {

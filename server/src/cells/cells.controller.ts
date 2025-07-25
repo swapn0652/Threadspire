@@ -5,6 +5,7 @@ import { CreateCellDto } from './dto/create-cell.dto';
 import { AddModeratorDto } from './dto/add-moderator.dto';
 import { EditCellDto } from './dto/edit-cell.dto';
 import { PostsService } from 'src/posts/posts.service';
+import { JoinCellsDto } from './dto/join-cells.dto';
 
 @Controller('cells')
 export class CellsController {
@@ -23,10 +24,10 @@ export class CellsController {
     }
 
     @UseGuards(AuthGuard('jwt'))
-    @Post(":id/join")
-    async joinCell(@Param('id') cellId: string, @Req() req) {
+    @Post("join-cells")
+    async joinCell(@Body() body: JoinCellsDto, @Req() req) {
         const userId = req.user.userId;
-        return this.cellsService.joinCell(cellId, userId);
+        return this.cellsService.joinCells(body.cellIds, userId);
     }
 
     @Get(':name')

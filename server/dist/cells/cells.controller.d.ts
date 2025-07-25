@@ -3,6 +3,7 @@ import { CreateCellDto } from './dto/create-cell.dto';
 import { AddModeratorDto } from './dto/add-moderator.dto';
 import { EditCellDto } from './dto/edit-cell.dto';
 import { PostsService } from 'src/posts/posts.service';
+import { JoinCellsDto } from './dto/join-cells.dto';
 export declare class CellsController {
     private cellsService;
     private postsService;
@@ -23,7 +24,7 @@ export declare class CellsController {
         description: string | null;
         createdById: string;
     }[]>;
-    joinCell(cellId: string, req: any): Promise<{
+    joinCell(body: JoinCellsDto, req: any): Promise<{
         message: string;
     }>;
     getCellByName(name: string): Promise<{

@@ -1,15 +1,13 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { FeedService } from './feed.service';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('feed')
-@UseGuards(AuthGuard('jwt'))
 export class FeedController {
   constructor(private feedService: FeedService) {}
 
   @Get()
-  async getUserFeed(@Req() req) {
-    const userId = req.user.userId;
-    return this.feedService.getFeedForUser(userId);
+  async getFeed(@Req() req) {
+    const user = req.user as { userId?: string };
+    return this.feedService.getFeed(user?.userId);
   }
 }

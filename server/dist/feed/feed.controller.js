@@ -15,15 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeedController = void 0;
 const common_1 = require("@nestjs/common");
 const feed_service_1 = require("./feed.service");
-const passport_1 = require("@nestjs/passport");
 let FeedController = class FeedController {
     feedService;
     constructor(feedService) {
         this.feedService = feedService;
     }
-    async getUserFeed(req) {
-        const userId = req.user.userId;
-        return this.feedService.getFeedForUser(userId);
+    async getFeed(req) {
+        const user = req.user;
+        return this.feedService.getFeed(user?.userId);
     }
 };
 exports.FeedController = FeedController;
@@ -33,10 +32,9 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], FeedController.prototype, "getUserFeed", null);
+], FeedController.prototype, "getFeed", null);
 exports.FeedController = FeedController = __decorate([
     (0, common_1.Controller)('feed'),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     __metadata("design:paramtypes", [feed_service_1.FeedService])
 ], FeedController);
 //# sourceMappingURL=feed.controller.js.map

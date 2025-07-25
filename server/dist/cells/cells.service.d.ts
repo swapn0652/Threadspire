@@ -22,7 +22,7 @@ export declare class CellsService {
         description: string | null;
         createdById: string;
     }[]>;
-    joinCell(cellId: string, userId: string): Promise<{
+    joinCells(cellIds: string[], userId: string): Promise<{
         message: string;
     }>;
     getCellByName(name: string): Promise<{

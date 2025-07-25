@@ -20,6 +20,7 @@ const create_cell_dto_1 = require("./dto/create-cell.dto");
 const add_moderator_dto_1 = require("./dto/add-moderator.dto");
 const edit_cell_dto_1 = require("./dto/edit-cell.dto");
 const posts_service_1 = require("../posts/posts.service");
+const join_cells_dto_1 = require("./dto/join-cells.dto");
 let CellsController = class CellsController {
     cellsService;
     postsService;
@@ -34,9 +35,9 @@ let CellsController = class CellsController {
     getAllCells() {
         return this.cellsService.getAllCells();
     }
-    async joinCell(cellId, req) {
+    async joinCell(body, req) {
         const userId = req.user.userId;
-        return this.cellsService.joinCell(cellId, userId);
+        return this.cellsService.joinCells(body.cellIds, userId);
     }
     getCellByName(name) {
         return this.cellsService.getCellByName(name);
@@ -75,11 +76,11 @@ __decorate([
 ], CellsController.prototype, "getAllCells", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Post)(":id/join"),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Post)("join-cells"),
+    __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [join_cells_dto_1.JoinCellsDto, Object]),
     __metadata("design:returntype", Promise)
 ], CellsController.prototype, "joinCell", null);
 __decorate([

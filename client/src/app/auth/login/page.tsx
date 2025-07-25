@@ -40,7 +40,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-white dark:bg-zinc-900">
       <div className="w-full max-w-md bg-white dark:bg-zinc-900 border dark:border-zinc-800 shadow-lg rounded-2xl p-8">
         <h2 className="text-3xl font-semibold mb-6 text-center text-zinc-800 dark:text-white">
           Welcome Back
@@ -81,15 +81,24 @@ export default function LoginPage() {
 
         <div className="mt-6 text-center">
           <button
-            className="w-full py-2 px-4 border border-zinc-300 dark:border-zinc-600 rounded-lg flex items-center justify-center gap-2 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
+            className="w-full py-2 px-4 border border-zinc-300 dark:border-zinc-600 rounded-lg flex items-center justify-center gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition text-zinc-800 dark:text-white"
             onClick={() =>
               (window.location.href = 'http://localhost:8080/auth/google')
             }
           >
-            <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
-            <span className="text-sm">Continue with Google</span>
+            <img
+              src="/google-icon.svg"
+              alt="Google"
+              className="w-5 h-5"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src =
+                  'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg';
+              }}
+            />
+            <span className="text-sm font-medium">Continue with Google</span>
           </button>
         </div>
+
 
         <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
           Don&apos;t have an account?{' '}

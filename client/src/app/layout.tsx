@@ -29,14 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ReactQueryProvider>
-          <ThemeProvider attribute="class">
+        <ThemeProvider enableSystem={true} defaultTheme="system">
+          <ReactQueryProvider>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-            <Navbar/>
+            <Navbar />
             {children}
-          </ThemeProvider>
-        </ReactQueryProvider>
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+
