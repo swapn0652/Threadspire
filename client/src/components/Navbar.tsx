@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { User2 } from 'lucide-react';
+import { useMe } from '../../utils/hooks/useMe';
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { data: user, isLoading } = useMe();
 
   useEffect(() => setMounted(true), []);
 
@@ -37,12 +40,19 @@ export default function Navbar() {
             </button>
           )}
 
-          <Link
-            href="/auth/signup"
-            className="text-sm font-medium hover:underline"
-          >
-            Login
-          </Link>
+          {!isLoading && user ? (
+            <Link href="/profile" className="flex items-center gap-2 text-sm font-medium hover:underline">
+              <User2 className="w-4 h-4" />
+              {user.username}
+            </Link>
+          ) : (
+            <Link
+              href="/auth/signup"
+              className="text-sm font-medium hover:underline"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </header>

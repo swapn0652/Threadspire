@@ -185,4 +185,18 @@ export class CellsService {
             }
         });
     }
+
+    async getJoinedCells(userId: string) {
+        return this.prisma.cell.findMany({
+            where: {
+            members: {
+                some: { userId },
+            },
+            },
+            select: {
+            id: true,
+            },
+        });
+    }
+
 }

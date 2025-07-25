@@ -39,6 +39,9 @@ let CellsController = class CellsController {
         const userId = req.user.userId;
         return this.cellsService.joinCells(body.cellIds, userId);
     }
+    getJoinedCells(req) {
+        return this.cellsService.getJoinedCells(req.user.userId);
+    }
     getCellByName(name) {
         return this.cellsService.getCellByName(name);
     }
@@ -83,6 +86,14 @@ __decorate([
     __metadata("design:paramtypes", [join_cells_dto_1.JoinCellsDto, Object]),
     __metadata("design:returntype", Promise)
 ], CellsController.prototype, "joinCell", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('joined-cells'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], CellsController.prototype, "getJoinedCells", null);
 __decorate([
     (0, common_1.Get)(':name'),
     __param(0, (0, common_1.Param)('name')),

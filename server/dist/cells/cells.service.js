@@ -170,6 +170,18 @@ let CellsService = class CellsService {
             }
         });
     }
+    async getJoinedCells(userId) {
+        return this.prisma.cell.findMany({
+            where: {
+                members: {
+                    some: { userId },
+                },
+            },
+            select: {
+                id: true,
+            },
+        });
+    }
 };
 exports.CellsService = CellsService;
 exports.CellsService = CellsService = __decorate([

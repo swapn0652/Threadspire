@@ -30,6 +30,12 @@ export class CellsController {
         return this.cellsService.joinCells(body.cellIds, userId);
     }
 
+    @UseGuards(AuthGuard('jwt'))
+    @Get('joined-cells')
+    getJoinedCells(@Req() req) {
+        return this.cellsService.getJoinedCells(req.user.userId);
+    }
+
     @Get(':name')
     getCellByName(@Param('name') name: string) {
         return this.cellsService.getCellByName(name);
@@ -60,5 +66,4 @@ export class CellsController {
     getPostsInCell(@Param('id') cellId: string) {
         return this.postsService.getPostsInCell(cellId);
     }
-
 }

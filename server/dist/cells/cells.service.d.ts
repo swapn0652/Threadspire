@@ -7,19 +7,19 @@ export declare class CellsService {
         title: string;
         description?: string;
     }): Promise<{
-        name: string;
         id: string;
-        createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
+        createdAt: Date;
         createdById: string;
     }>;
     getAllCells(): Promise<{
-        name: string;
         id: string;
-        createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
+        createdAt: Date;
         createdById: string;
     }[]>;
     joinCells(cellIds: string[], userId: string): Promise<{
@@ -36,8 +36,8 @@ export declare class CellsService {
         moderatorsCount: number;
         members: {
             id: string;
-            userId: string;
             joinedAt: Date;
+            userId: string;
             cellId: string;
         }[];
         moderators: {
@@ -58,10 +58,13 @@ export declare class CellsService {
         title?: string;
         description?: string;
     }): Promise<{
-        name: string;
         id: string;
-        createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
+        createdAt: Date;
     }>;
+    getJoinedCells(userId: string): Promise<{
+        id: string;
+    }[]>;
 }
