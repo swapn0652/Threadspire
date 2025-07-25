@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
 import { Toaster } from "react-hot-toast";
-import Navbar from "@/components/providers/Navbar";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

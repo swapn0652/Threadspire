@@ -26,6 +26,21 @@ let UserController = class UserController {
         const userId = req.user.userId;
         return this.userService.updateProfile(userId, dto);
     }
+    async getMe(req) {
+        return this.userService.getMe(req.user.userId);
+    }
+    async getMyPosts(req, limit, cursor) {
+        return this.userService.getMyPosts(req.user.userId, Number(limit) || 10, cursor);
+    }
+    async getMyReplies(req, limit, cursor) {
+        return this.userService.getMyReplies(req.user.userId, Number(limit) || 10, cursor);
+    }
+    async getUpvotedPosts(req, limit, cursor) {
+        return this.userService.getUpvotedPosts(req.user.userId, Number(limit) || 10, cursor);
+    }
+    async getDownvotedPosts(req, limit, cursor) {
+        return this.userService.getDownvotedPosts(req.user.userId, Number(limit) || 10, cursor);
+    }
 };
 exports.UserController = UserController;
 __decorate([
@@ -37,6 +52,54 @@ __decorate([
     __metadata("design:paramtypes", [Object, update_user_dto_1.UpdateUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateProfile", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('me'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getMe", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('posts'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('cursor')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getMyPosts", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('replies'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('cursor')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getMyReplies", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('upvoted'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('cursor')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUpvotedPosts", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('downvoted'),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('cursor')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getDownvotedPosts", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])
