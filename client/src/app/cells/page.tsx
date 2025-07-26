@@ -19,7 +19,7 @@ export default function CellsPage() {
   );
 
   return (
-    <div className="min-h-screen px-4 py-6 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+    <div className="min-h-screen px-4 py-6 bg-white dark:bg-neutral-950  text-zinc-900 dark:text-white">
       <div className="max-w-4xl mx-auto space-y-6">
         <h1 className="text-3xl font-bold">Explore Cells</h1>
 

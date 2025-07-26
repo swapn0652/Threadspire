@@ -9,19 +9,19 @@ export declare class CellsController {
     private postsService;
     constructor(cellsService: CellsService, postsService: PostsService);
     create(req: any, dto: CreateCellDto): Promise<{
-        id: string;
         name: string;
+        id: string;
+        createdAt: Date;
         title: string;
         description: string | null;
-        createdAt: Date;
         createdById: string;
     }>;
     getAllCells(): Promise<{
-        id: string;
         name: string;
+        id: string;
+        createdAt: Date;
         title: string;
         description: string | null;
-        createdAt: Date;
         createdById: string;
     }[]>;
     joinCell(body: JoinCellsDto, req: any): Promise<{
@@ -41,8 +41,8 @@ export declare class CellsController {
         moderatorsCount: number;
         members: {
             id: string;
-            joinedAt: Date;
             userId: string;
+            joinedAt: Date;
             cellId: string;
         }[];
         moderators: {
@@ -60,20 +60,20 @@ export declare class CellsController {
         message: string;
     }>;
     updateCell(cellId: string, req: any, dto: EditCellDto): Promise<{
-        id: string;
         name: string;
+        id: string;
+        createdAt: Date;
         title: string;
         description: string | null;
-        createdAt: Date;
     }>;
     getPostsInCell(cellId: string): Promise<{
         id: string;
         createdAt: Date;
+        updatedAt: Date;
         userId: string;
         cellId: string;
         content: string;
         upvotes: number;
         downvotes: number;
-        updatedAt: Date;
     }[]>;
 }

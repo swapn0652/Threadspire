@@ -2,42 +2,31 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import ReactQueryProvider from '@/components/providers/ReactQueryProvider';
+import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import { Toaster } from "react-hot-toast";
-import Navbar from "@/components/Navbar";
+import AppShell from "@/components/AppShell";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Threadspire",
   description: "Discuss everything you love!",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider enableSystem={true} defaultTheme="system">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white`}
+      >
+        <ThemeProvider enableSystem defaultTheme="system">
           <ReactQueryProvider>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-            <Navbar />
-            {children}
+            <AppShell>{children}</AppShell>
           </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
-

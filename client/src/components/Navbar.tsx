@@ -3,10 +3,10 @@
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { User2 } from 'lucide-react';
+import { Menu, User2 } from 'lucide-react';
 import { useMe } from '../../utils/hooks/useMe';
 
-export default function Navbar() {
+export default function Navbar({ onHamburgerClick }: { onHamburgerClick: () => void }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const { data: user, isLoading } = useMe();
@@ -15,11 +15,20 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b shadow-sm bg-white text-black dark:bg-neutral-950 dark:text-white border-gray-200 dark:border-neutral-800 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="h-16 flex items-center justify-between px-4 sm:px-6 md:pl-8">
         
-        <Link href="/" className="text-xl font-bold">
-          Threadspire
-        </Link>
+        <div className="flex items-center gap-4">
+          <button
+            className="md:hidden p-1 rounded hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
+            onClick={onHamburgerClick}
+          >
+            <Menu size={22} />
+          </button>
+
+          <Link href="/" className="text-xl font-bold">
+            Threadspire
+          </Link>
+        </div>
 
         <div className="hidden md:block w-1/2">
           <input
