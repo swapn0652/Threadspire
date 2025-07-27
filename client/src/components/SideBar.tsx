@@ -19,7 +19,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
     <>
       <div
         className={cn(
-          "fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] z-40 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 transition-transform duration-300 ease-in-out md:hidden",
+          "fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] z-40 bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 transition-transform duration-300 ease-in-out md:hidden",
           open ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -46,7 +46,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
         </nav>
       </div>
 
-      <aside className="hidden md:flex fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-6">
+      <aside className="hidden md:flex fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] border-r border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-6">
         <nav className="space-y-3 w-full">
           {links.map((link) => (
             <Link

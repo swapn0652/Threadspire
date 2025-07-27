@@ -63,7 +63,16 @@ export class CellsController {
     }
 
     @Get('/:id/posts')
-    getPostsInCell(@Param('id') cellId: string) {
-        return this.postsService.getPostsInCell(cellId);
+    getPostsInCell(
+    @Param('id') cellId: string, 
+    @Req() req: any,
+    ) {
+        const take = parseInt(req.query.take) || 10;
+        const cursor = req.query.cursor || undefined;
+        const sortBy = req.query.sortBy || 'top';
+
+        return this.postsService.getPostsInCell(cellId, { take, cursor, sortBy });
     }
+
+
 }

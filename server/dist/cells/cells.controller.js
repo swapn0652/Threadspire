@@ -57,8 +57,11 @@ let CellsController = class CellsController {
         const userId = req.user.userId;
         return this.cellsService.updateCell(cellId, userId, dto);
     }
-    getPostsInCell(cellId) {
-        return this.postsService.getPostsInCell(cellId);
+    getPostsInCell(cellId, req) {
+        const take = parseInt(req.query.take) || 10;
+        const cursor = req.query.cursor || undefined;
+        const sortBy = req.query.sortBy || 'top';
+        return this.postsService.getPostsInCell(cellId, { take, cursor, sortBy });
     }
 };
 exports.CellsController = CellsController;
@@ -133,8 +136,9 @@ __decorate([
 __decorate([
     (0, common_1.Get)('/:id/posts'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], CellsController.prototype, "getPostsInCell", null);
 exports.CellsController = CellsController = __decorate([

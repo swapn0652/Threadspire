@@ -9,17 +9,17 @@ export declare class CellsController {
     private postsService;
     constructor(cellsService: CellsService, postsService: PostsService);
     create(req: any, dto: CreateCellDto): Promise<{
-        name: string;
         id: string;
         createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
         createdById: string;
     }>;
     getAllCells(): Promise<{
-        name: string;
         id: string;
         createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
         createdById: string;
@@ -42,8 +42,8 @@ export declare class CellsController {
         members: {
             id: string;
             userId: string;
-            joinedAt: Date;
             cellId: string;
+            joinedAt: Date;
         }[];
         moderators: {
             id: string;
@@ -60,20 +60,40 @@ export declare class CellsController {
         message: string;
     }>;
     updateCell(cellId: string, req: any, dto: EditCellDto): Promise<{
-        name: string;
         id: string;
         createdAt: Date;
+        name: string;
         title: string;
         description: string | null;
     }>;
-    getPostsInCell(cellId: string): Promise<{
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string;
-        cellId: string;
-        content: string;
-        upvotes: number;
-        downvotes: number;
-    }[]>;
+    getPostsInCell(cellId: string, req: any): Promise<{
+        items: ({
+            user: {
+                id: string;
+                name: string;
+                username: string | null;
+            };
+            cell: {
+                id: string;
+                name: string;
+            };
+            votes: {
+                id: string;
+                createdAt: Date;
+                userId: string;
+                value: number;
+                postId: string;
+            }[];
+        } & {
+            id: string;
+            content: string;
+            upvotes: number;
+            downvotes: number;
+            createdAt: Date;
+            updatedAt: Date;
+            userId: string;
+            cellId: string;
+        })[];
+        nextCursor: string | null;
+    }>;
 }

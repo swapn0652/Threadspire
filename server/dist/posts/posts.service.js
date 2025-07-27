@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const prisma_1 = require("../../generated/prisma/index.js");
 let PostsService = class PostsService {
     prisma;
     constructor(prisma) {
@@ -33,11 +34,29 @@ let PostsService = class PostsService {
             }
         });
     }
-    async getPostsInCell(cellId) {
-        return this.prisma.post.findMany({
+    async getPostsInCell(cellId, params) {
+        const { take, cursor, sortBy = 'top' } = params;
+        const orderBy = sortBy === 'latest'
+            ? { createdAt: prisma_1.Prisma.SortOrder.desc }
+            : { upvotes: prisma_1.Prisma.SortOrder.desc };
+        const posts = await this.prisma.post.findMany({
             where: { cellId },
-            orderBy: { createdAt: 'desc' }
+            take: take + 1,
+            skip: cursor ? 1 : 0,
+            cursor: cursor ? { id: cursor } : undefined,
+            orderBy,
+            include: {
+                user: { select: { id: true, username: true, name: true } },
+                votes: true,
+                cell: { select: { id: true, name: true } },
+            },
         });
+        const hasNext = posts.length > take;
+        const items = hasNext ? posts.slice(0, -1) : posts;
+        return {
+            items,
+            nextCursor: hasNext ? posts[take].id : null,
+        };
     }
     async getPostById(postId) {
         const post = await this.prisma.post.findUnique({ where: { id: postId } });

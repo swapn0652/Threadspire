@@ -14,7 +14,7 @@ export default function Navbar({ onHamburgerClick }: { onHamburgerClick: () => v
   useEffect(() => setMounted(true), []);
 
   return (
-    <header className="sticky top-0 z-50 border-b shadow-sm bg-white text-black dark:bg-neutral-950 dark:text-white border-gray-200 dark:border-neutral-800 transition-colors">
+    <header className="sticky top-0 z-50 border-b bg-zinc-50 shadow-sm bg-white text-black dark:bg-neutral-950 dark:text-white border-gray-200 dark:border-neutral-800 transition-colors">
       <div className="h-16 flex items-center justify-between px-4 sm:px-6 md:pl-8">
         
         <div className="flex items-center gap-4">
